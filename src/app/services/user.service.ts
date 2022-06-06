@@ -17,14 +17,14 @@ export class UserService {
   }
 
   public postUser(newUser: User) : Observable<User> {
-    return this.http.post<User>(`${this.userUrl}${this.word}`, newUser);
+    return this.http.post<User>(`${this.userUrl}`, newUser);
   }
 
-  public removeUser() : Observable<User> {
-    return this.http.delete<User>(`${this.userUrl}${this.word}`);
+  public removeUser(userId: number) : Observable<User> {
+    return this.http.delete<User>(`${this.userUrl}/${userId}`);
   }
 
-  public putUser(newUser: User) : Observable<User> {
-    return this.http.put<User>(`${this.userUrl}${this.word}`, newUser);
+  public putUser(newUser: User, userId: number) : Observable<User> {
+    return this.http.put<User>(`${this.userUrl}/${userId}`, newUser);
   }
 }

@@ -1,0 +1,35 @@
+<div class="field-input-container">
+  <button mat-raised-button color="accent" (click)="onAddUser()">Add User</button>
+  <table mat-table [dataSource]="userList" class="mat-elevtation-z8">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> User ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Full Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.first_name}} {{element.last_name}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="user_name">
+      <th mat-header-cell *matHeaderCellDef> Username </th>
+      <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> User Email </th>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell  *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-raised-button color="accent" (click)="onEditUser(element)">Edit</button>
+        <button mat-raised-button color="warn" (click)="onDeleteUser(element)">Delete</button>
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
