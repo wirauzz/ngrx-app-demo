@@ -41,4 +41,24 @@ export class UsersPageComponent implements OnInit {
     this.removeSelectedUser();
   }
 
+  onSave(user: User) {
+    if('id' in user) {
+      this.updateUser(user);
+    } else {
+      this.saveUser(user);
+    }
+  }
+
+  saveUser(user: User) {
+    this.userService.postUser(user).subscribe(() => {
+      this.removeSelectedUser();
+    })
+  }
+
+  updateUser(user: User) {
+    this.userService.putUser(user, user.id).subscribe(() => {
+      this.removeSelectedUser();
+    })
+  }
+
 }
