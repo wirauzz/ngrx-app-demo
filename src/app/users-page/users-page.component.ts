@@ -1,16 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../models/User';
 import { UserService } from '../services/user.service';
-
+import * as UserActions from '../store/actions/users-page.actions';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { selectActiveUser, selectAllUsers } from '../store/selectors/users-page.selector';
 @Component({
   selector: 'app-users-page',
   templateUrl: './users-page.component.html',
   styleUrls: ['./users-page.component.scss']
 })
 export class UsersPageComponent implements OnInit {
-  users: User[] = [];
-  selectedUser: User | null = null;
-  constructor(private userService: UserService) { }
+  users$: Observable<User[]>;
+  selectedUser$: Observable<User>;
+
+  constructor(private userService: UserService, private store: Store<any>) {
+    this.users$ = store.select(selectAllUsers);
+    this.selectedUser$ = store.select(selectActiveUser);
+  }
 
   ngOnInit() {
     this.getUsers();
@@ -18,23 +25,21 @@ export class UsersPageComponent implements OnInit {
 
   getUsers() {
     this.userService.getUsers().subscribe(users => {
-      this.users = users;
+      this.store.dispatch(UserActions.loadUsersSuccess({users}));
     })
   }
 
   onSelect(user: User) {
-    this.selectedUser = user;
+    this.store.dispatch(UserActions.selectUser({userId: user.id}));
+
   }
 
   onDelete(user: User) {
-    this.userService.removeUser(user.id).subscribe(() => {
-      this.getUsers();
-      this.removeSelectedUser();
-    })
+    this.store.dispatch(UserActions.removeUser({idUser: user.id}));
   }
 
   removeSelectedUser() {
-    this.selectedUser = null;
+    this.store.dispatch(UserActions.clearSelectedUser())
   }
 
   onCancel() {
@@ -50,15 +55,11 @@ export class UsersPageComponent implements OnInit {
   }
 
   saveUser(user: User) {
-    this.userService.postUser(user).subscribe(() => {
-      this.removeSelectedUser();
-    })
+    this.store.dispatch(UserActions.createUser({newUser: user}))
   }
 
   updateUser(user: User) {
-    this.userService.putUser(user, user.id).subscribe(() => {
-      this.removeSelectedUser();
-    })
+    this.store.dispatch(UserActions.editUser({idUser: user.id, newUser: user}))
   }
 
 }
