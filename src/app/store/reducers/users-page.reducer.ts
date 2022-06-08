@@ -26,7 +26,7 @@ export const usersReducer = createReducer(
     })),
     on(UserActions.createUser, (state, { newUser }) => ({
         ...state,
-        users: [...state.users, {  id: newUser.id,
+        users: [...state.users, { id: newUser.id,
             first_name: newUser.first_name,
             last_name: newUser.last_name,
             username: newUser.username,

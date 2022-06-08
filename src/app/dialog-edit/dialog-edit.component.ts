@@ -15,8 +15,7 @@ export class DialogEditComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DialogEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private formBuilder: FormBuilder,
-    private userService: UserService
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
@@ -47,7 +46,7 @@ export class DialogEditComponent implements OnInit {
     editedUser.username = formAsset.userName.trim();
     editedUser.email = formAsset.email.trim();
     editedUser.id = this.data.user.id;
-    this.userService.putUser(editedUser, this.data.user.id).subscribe();
+    this.dialogRef.close({ data: editedUser });
   }
   
 }

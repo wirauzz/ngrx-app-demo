@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="col-50">
+    <app-users-list
+        [users]="users"
+        (select)="onSelect($event)"
+        (delete)="onDelete($event)">
+    </app-users-list>
+  </div>
+  <app-user-detail
+    class="col-50"
+    [user]="selectedUser"
+    (save)="onSave($event)"
+    (cancel)="onCancel()"
+  >
+  </app-user-detail>
+</div>
+  

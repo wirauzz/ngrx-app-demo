@@ -48,6 +48,6 @@ export class DialogAddComponent implements OnInit {
     newUser.username = formAsset.userName.trim();
     newUser.email = formAsset.email.trim();
     newUser.id = Math.floor((Math.random() * 1000) + 1);
-    this.userService.postUser(newUser).subscribe();
+    this.dialogRef.close({ data: newUser });
   }
 }

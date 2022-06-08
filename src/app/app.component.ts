@@ -9,12 +9,8 @@ import { UserService } from './services/user.service';
 export class AppComponent implements OnInit {
   title = 'ngrx-app-demo';
 
-  constructor(
-    private userSerice: UserService
-  ) { }
+  constructor( ) { }
   ngOnInit() {
-    this.userSerice.getUsers().subscribe((resp) =>
-      console.log(resp)
-    )
+    
   }
 }
