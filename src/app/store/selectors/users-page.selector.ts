@@ -1,9 +1,22 @@
 import { createSelector } from '@ngrx/store';
-import { AppState } from '../state/app.state';
-import { UserState } from '../reducers/users-page.reducer';
+import { selectSharedUsersState } from '../state/app.state';
+import * as fromUsers from '../reducers/users-page.reducer';
 
-export const selectUsers = (state: AppState) => state.users;
+/**
+ * User Selectors
+ */
+
+export const selectUserState = createSelector(
+  selectSharedUsersState,
+  (sharedUserFeature) => sharedUserFeature.users
+);
+
 export const selectAllUsers = createSelector(
-  selectUsers,
-  (state: UserState) => state.users
+  selectUserState,
+  fromUsers.selectUsers
+);
+
+export const selectActiveUser = createSelector(
+  selectUserState,
+  fromUsers.selectUserId
 );
