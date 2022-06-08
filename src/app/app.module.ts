@@ -13,6 +13,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { UsersPageComponent } from './users-page/users-page.component';
 import { UsersListComponent } from './users-list/users-list.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
+import { UsersModule } from './store/state/app.state';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
     MatCardModule,
     MatIconModule,
     MatListModule,
-    StoreModule.forRoot({ user: usersReducer}),
+    StoreModule.forRoot({}),
+    UsersModule,
     StoreDevtoolsModule.instrument({
       maxAge: 25
     })
